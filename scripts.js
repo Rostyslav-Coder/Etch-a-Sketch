@@ -36,6 +36,11 @@ x16.addEventListener('click', function () {
     createSquares(numSquares);
 });
 
+const reset = document.querySelector('#reset');
+reset.addEventListener('click', function () {
+    field.innerHTML = '';
+});
+
 const pencilBlack = document.querySelector('#black');
 
 
