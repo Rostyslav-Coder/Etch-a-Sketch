@@ -19,6 +19,15 @@ function createSquares(num) {
         square.style.border = '1px solid black';
         field.appendChild(square);
     };
+
+    const squares = document.querySelectorAll('[id^="square-"]');
+    squares.forEach(function(square) {
+        square.addEventListener('mouseover', function () {
+            if (isBlack) {
+                square.style.backgroundColor = 'black';
+            }
+        });
+    });
 };
 
 const x8 = document.querySelector('#x8');
@@ -58,6 +67,9 @@ grayscaleButton.addEventListener('click', function () {
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', function () {
     field.innerHTML = '';
+    isBlack = false;
+    isRainbow = false;
+    isGrayscale = false;
 });
 
 
