@@ -25,28 +25,14 @@ function createSquares(num) {
         square.addEventListener('mouseover', function () {
             if (isBlack) {
                 square.style.backgroundColor = 'black';
+            } else if (isRainbow) {
+                square.style.backgroundColor = randomColor();
+            } else if (isGrayscale) {
+                // do nothing 
             }
         });
     });
 };
-
-const x8 = document.querySelector('#x8');
-x8.addEventListener('click', function () {
-    numSquares = 8;
-    createSquares(numSquares);
-});
-
-const x12 = document.querySelector('#x12');
-x12.addEventListener('click', function () {
-    numSquares = 12;
-    createSquares(numSquares);
-});
-
-const x16 = document.querySelector('#x16');
-x16.addEventListener('click', function () {
-    numSquares = 16;
-    createSquares(numSquares);
-});
 
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
@@ -69,6 +55,29 @@ grayscaleButton.addEventListener('click', function () {
     isRainbow = false;
 });
 
+const randomColor = function () {
+    const colors = ['red', 'orange', 'yellow', 'green', 'lightblue', 'blue', 'violet']
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    return color; 
+}
+
+const x8 = document.querySelector('#x8');
+x8.addEventListener('click', function () {
+    numSquares = 8;
+    createSquares(numSquares);
+});
+
+const x12 = document.querySelector('#x12');
+x12.addEventListener('click', function () {
+    numSquares = 12;
+    createSquares(numSquares);
+});
+
+const x16 = document.querySelector('#x16');
+x16.addEventListener('click', function () {
+    numSquares = 16;
+    createSquares(numSquares);
+});
 
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', function () {
