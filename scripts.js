@@ -51,16 +51,22 @@ x16.addEventListener('click', function () {
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
     isBlack = true;
+    isRainbow = false;
+    isGrayscale = false;
 });
 
 const rainbowButton = document.querySelector('#rainbow');
 rainbowButton.addEventListener('click', function () {
     isRainbow = true;
+    isBlack = false;
+    isGrayscale = false;
 });
 
 const grayscaleButton = document.querySelector('#grayscale');
 grayscaleButton.addEventListener('click', function () {
     isGrayscale = true;
+    isBlack = false;
+    isRainbow = false;
 });
 
 
