@@ -1,8 +1,11 @@
 // Etch-a-Sketch
 
-const field = document.querySelector('#sketch');
-
 let numSquares;
+let isBlack = false;
+let isRainbow = false;
+let grayscale = false;
+
+const field = document.querySelector('#sketch');
 
 function createSquares(num) {
     field.innerHTML = '';
@@ -36,11 +39,16 @@ x16.addEventListener('click', function () {
     createSquares(numSquares);
 });
 
+const blackButton = document.querySelector('#black');
+blackButton.addEventListener('click', function () {
+    isBlack = true;
+});
+
+
+
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', function () {
     field.innerHTML = '';
 });
-
-const pencilBlack = document.querySelector('#black');
 
 
