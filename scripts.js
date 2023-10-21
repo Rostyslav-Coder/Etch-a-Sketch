@@ -3,7 +3,7 @@
 let numSquares;
 let isBlack = false;
 let isRainbow = false;
-let grayscale = false;
+let isGrayscale = false;
 
 const field = document.querySelector('#sketch');
 
@@ -44,6 +44,15 @@ blackButton.addEventListener('click', function () {
     isBlack = true;
 });
 
+const rainbowButton = document.querySelector('#rainbow');
+rainbowButton.addEventListener('click', function () {
+    isRainbow = true;
+});
+
+const grayscaleButton = document.querySelector('#grayscale');
+grayscaleButton.addEventListener('click', function () {
+    isGrayscale = true;
+});
 
 
 const reset = document.querySelector('#reset');
