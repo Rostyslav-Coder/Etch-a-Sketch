@@ -42,6 +42,18 @@ function createSquares(num) {
     });
 };
 
+const numInput = document.querySelector('#number');
+numInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+        numSquares = Number(numInput.value);
+        if (numSquares > 32) {
+            numSquares = 32;
+        }
+        createSquares(numSquares);
+        numInput.value = '';
+    }
+})
+
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
     if (!isBlack) {
