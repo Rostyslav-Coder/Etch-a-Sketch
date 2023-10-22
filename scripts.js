@@ -18,6 +18,7 @@ function createSquares(num) {
         let square = document.createElement('div');
         square.setAttribute('id', 'square-' + i);
         square.style.border = '1px solid black';
+        square.dataset.grayScaleLevel = 100;
         field.appendChild(square);
     };
 
@@ -30,6 +31,8 @@ function createSquares(num) {
                 square.style.backgroundColor = getRainbowColor();
             } else if (isRandom) {
                 square.style.backgroundColor = getRandomColor();
+            } else if (isGrayscale) {
+                square.style.backgroundColor = getGrayscale(square);
             }
         });
     });
@@ -37,48 +40,104 @@ function createSquares(num) {
 
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
-    isBlack = true;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
+    if (!isBlack) {
+        isBlack = true;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        blackButton.style.color = 'white';
+        rainbowButton.style.color = '#04202c';
+        randomButton.style.color = '#04202c';
+        grayscaleButton.style.color = '#04202c';
+    } else {
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        blackButton.style.color = '#04202c';
+    }
 });
 
 const rainbowButton = document.querySelector('#rainbow');
 rainbowButton.addEventListener('click', function () {
-    isRainbow = true;
-    isBlack = false;
-    isRandom = false;
-    isGrayscale = false;
+    if (!isRainbow) {
+        isRainbow = true;
+        isBlack = false;
+        isRandom = false;
+        isGrayscale = false;
+        rainbowButton.style.color = 'white';
+        blackButton.style.color = '#04202c';
+        randomButton.style.color = '#04202c';
+        grayscaleButton.style.color = '#04202c';
+    } else {
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        rainbowButton.style.color = '#04202c';
+    }
 });
 
 const randomButton = document.querySelector('#random_');
 randomButton.addEventListener('click', function () {
-    isRandom = true;
-    isBlack = false;
-    isRainbow = false;
-    isGrayscale = false;
+    if (!isRandom) {
+        isRandom = true;
+        isBlack = false;
+        isRainbow = false;
+        isGrayscale = false;
+        randomButton.style.color = 'white';
+        blackButton.style.color = '#04202c';
+        rainbowButton.style.color = '#04202c';
+        grayscaleButton.style.color = '#04202c';
+    } else {
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        randomButton.style.color = '#04202c';
+    }
 });
 
 const grayscaleButton = document.querySelector('#grayscale');
 grayscaleButton.addEventListener('click', function () {
-    isGrayscale = true;
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
+    if (!isGrayscale) {
+        isGrayscale = true;
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        grayscaleButton.style.color = 'white';
+        blackButton.style.color = '#04202c';
+        rainbowButton.style.color = '#04202c';
+        randomButton.style.color = '#04202c';
+    } else {
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        grayscaleButton.style.color = '#04202c';
+    }
 });
 
 function getRainbowColor() {
     const colors = ['red', 'orange', 'yellow', 'green', 'lightblue', 'blue', 'violet']
     const color = colors[Math.floor(Math.random() * colors.length)];
     return color; 
-}
+};
+
+function randomNum() {
+    return Math.floor(Math.random() * 256);
+};
 
 function getRandomColor() {
     return `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
 };
 
-function randomNum() {
-    return Math.floor(Math.random() * 256);
+function getGrayscale(square) {
+    let grayScaleLevel = Number(square.dataset.grayScaleLevel);
+    grayScaleLevel = Math.max(grayScaleLevel - 10, 0);
+    square.dataset.grayScaleLevel = grayScaleLevel;
+    let grayScaleValue = Math.floor(grayScaleLevel * 255 / 100);
+    return `rgb(${grayScaleValue}, ${grayScaleValue}, ${grayScaleValue})`;
 };
 
 const x8 = document.querySelector('#x8');
@@ -104,7 +163,10 @@ reset.addEventListener('click', function () {
     field.innerHTML = '';
     isBlack = false;
     isRainbow = false;
+    isRandom = false;
     isGrayscale = false;
+    blackButton.style.color = '#04202c';
+    rainbowButton.style.color = '#04202c';
+    randomButton.style.color = '#04202c';
+    grayscaleButton.style.color = '#04202c';
 });
-
-
