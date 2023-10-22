@@ -5,6 +5,7 @@ let isBlack = false;
 let isRainbow = false;
 let isRandom = false;
 let isGrayscale = false;
+let isEraser = false;
 
 const field = document.querySelector('#sketch');
 
@@ -33,6 +34,9 @@ function createSquares(num) {
                 square.style.backgroundColor = getRandomColor();
             } else if (isGrayscale) {
                 square.style.backgroundColor = getGrayscale(square);
+            } else if (isEraser) {
+                square.style.backgroundColor = 'white';
+                square.dataset.grayScaleLevel = 100;
             }
         });
     });
@@ -45,15 +49,18 @@ blackButton.addEventListener('click', function () {
         isRainbow = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         blackButton.style.color = 'white';
         rainbowButton.style.color = '#04202c';
         randomButton.style.color = '#04202c';
         grayscaleButton.style.color = '#04202c';
+        eraserButton.style.color = '#04202c';
     } else {
         isBlack = false;
         isRainbow = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         blackButton.style.color = '#04202c';
     }
 });
@@ -65,15 +72,18 @@ rainbowButton.addEventListener('click', function () {
         isBlack = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         rainbowButton.style.color = 'white';
         blackButton.style.color = '#04202c';
         randomButton.style.color = '#04202c';
         grayscaleButton.style.color = '#04202c';
+        eraserButton.style.color = '#04202c';
     } else {
         isBlack = false;
         isRainbow = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         rainbowButton.style.color = '#04202c';
     }
 });
@@ -85,15 +95,18 @@ randomButton.addEventListener('click', function () {
         isBlack = false;
         isRainbow = false;
         isGrayscale = false;
+        isEraser = false;
         randomButton.style.color = 'white';
         blackButton.style.color = '#04202c';
         rainbowButton.style.color = '#04202c';
         grayscaleButton.style.color = '#04202c';
+        eraserButton.style.color = '#04202c';
     } else {
         isBlack = false;
         isRainbow = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         randomButton.style.color = '#04202c';
     }
 });
@@ -105,16 +118,42 @@ grayscaleButton.addEventListener('click', function () {
         isBlack = false;
         isRainbow = false;
         isRandom = false;
+        isEraser = false;
         grayscaleButton.style.color = 'white';
         blackButton.style.color = '#04202c';
         rainbowButton.style.color = '#04202c';
         randomButton.style.color = '#04202c';
+        eraserButton.style.color = '#04202c';
     } else {
         isBlack = false;
         isRainbow = false;
         isRandom = false;
         isGrayscale = false;
+        isEraser = false;
         grayscaleButton.style.color = '#04202c';
+    }
+});
+
+const eraserButton = document.querySelector('#eraser');
+eraserButton.addEventListener('click', function () {
+    if (!isEraser) {
+        isEraser = true;
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        eraserButton.style.color = 'white';
+        blackButton.style.color = '#04202c';
+        rainbowButton.style.color = '#04202c';
+        randomButton.style.color = '#04202c';
+        grayscaleButton.style.color = '#04202c';
+    } else {
+        isBlack = false;
+        isRainbow = false;
+        isRandom = false;
+        isGrayscale = false;
+        isEraser = false;
+        eraserButton.style.color = '#04202c';
     }
 });
 
