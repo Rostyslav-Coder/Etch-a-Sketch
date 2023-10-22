@@ -42,18 +42,6 @@ function createSquares(num) {
     });
 };
 
-const numInput = document.querySelector('#number');
-numInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-        numSquares = Number(numInput.value);
-        if (numSquares > 32) {
-            numSquares = 32;
-        }
-        createSquares(numSquares);
-        numInput.value = '';
-    }
-})
-
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
     if (!isBlack) {
@@ -191,22 +179,46 @@ function getGrayscale(square) {
     return `rgb(${grayScaleValue}, ${grayScaleValue}, ${grayScaleValue})`;
 };
 
+const numInput = document.querySelector('#number');
+numInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+        numSquares = Number(numInput.value);
+        if (numSquares > 32) {
+            numSquares = 32;
+        }
+        createSquares(numSquares);
+        numInput.value = '';
+    }
+    x8.style.color = '#04202c';
+    x12.style.color = '#04202c';
+    x16.style.color = '#04202c';
+});
+
 const x8 = document.querySelector('#x8');
 x8.addEventListener('click', function () {
     numSquares = 8;
     createSquares(numSquares);
+    x8.style.color = 'white';
+    x12.style.color = '#04202c';
+    x16.style.color = '#04202c';
 });
 
 const x12 = document.querySelector('#x12');
 x12.addEventListener('click', function () {
     numSquares = 12;
     createSquares(numSquares);
+    x12.style.color = 'white';
+    x8.style.color = '#04202c';
+    x16.style.color = '#04202c';
 });
 
 const x16 = document.querySelector('#x16');
 x16.addEventListener('click', function () {
     numSquares = 16;
     createSquares(numSquares);
+    x16.style.color = 'white';
+    x8.style.color = '#04202c';
+    x12.style.color = '#04202c';
 });
 
 const reset = document.querySelector('#reset');
@@ -220,4 +232,7 @@ reset.addEventListener('click', function () {
     rainbowButton.style.color = '#04202c';
     randomButton.style.color = '#04202c';
     grayscaleButton.style.color = '#04202c';
+    x8.style.color = '#04202c';
+    x12.style.color = '#04202c';
+    x16.style.color = '#04202c';
 });
