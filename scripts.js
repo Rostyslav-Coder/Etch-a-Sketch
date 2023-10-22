@@ -1,5 +1,6 @@
 // Etch-a-Sketch
 
+// Declare and initialize variables
 let numSquares;
 let isBlack = false;
 let isRainbow = false;
@@ -7,14 +8,19 @@ let isRandom = false;
 let isGrayscale = false;
 let isEraser = false;
 
+// Select the drawing field.
 const field = document.querySelector('#sketch');
 
+// Function to create squares on the drawing field.
 function createSquares(num) {
+    // Clear the field.
     field.innerHTML = '';
+    // Set up the grid.
     field.style.display = 'grid';
     field.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
     field.style.gridTemplateRows = `repeat(${num}, 1fr)`;
-    
+
+    // Create squares.
     for ( let i = 0; i < num * num; i++ ) {
         let square = document.createElement('div');
         square.setAttribute('id', 'square-' + i);
@@ -23,7 +29,9 @@ function createSquares(num) {
         field.appendChild(square);
     };
 
+    // Select all created squares.
     const squares = document.querySelectorAll('[id^="square-"]');
+    // Add mouseover event listener to each square.
     squares.forEach(function(square) {
         square.addEventListener('mouseover', function () {
             if (isBlack) {
@@ -42,6 +50,7 @@ function createSquares(num) {
     });
 };
 
+// Add click event listeners to button, black color.
 const blackButton = document.querySelector('#black');
 blackButton.addEventListener('click', function () {
     if (!isBlack) {
@@ -65,6 +74,7 @@ blackButton.addEventListener('click', function () {
     }
 });
 
+// Add click event listeners to button, random rainbow color.
 const rainbowButton = document.querySelector('#rainbow');
 rainbowButton.addEventListener('click', function () {
     if (!isRainbow) {
@@ -88,6 +98,7 @@ rainbowButton.addEventListener('click', function () {
     }
 });
 
+// Add click event listeners to button, random RGB color.
 const randomButton = document.querySelector('#random_');
 randomButton.addEventListener('click', function () {
     if (!isRandom) {
@@ -111,6 +122,7 @@ randomButton.addEventListener('click', function () {
     }
 });
 
+// Add click event listeners to button, with conversion from grayscale to RGB.
 const grayscaleButton = document.querySelector('#grayscale');
 grayscaleButton.addEventListener('click', function () {
     if (!isGrayscale) {
@@ -134,6 +146,7 @@ grayscaleButton.addEventListener('click', function () {
     }
 });
 
+// Add click event listeners to button, which clears the squares.
 const eraserButton = document.querySelector('#eraser');
 eraserButton.addEventListener('click', function () {
     if (!isEraser) {
@@ -157,20 +170,24 @@ eraserButton.addEventListener('click', function () {
     }
 });
 
+// Function to get random rainbow color.
 function getRainbowColor() {
     const colors = ['red', 'orange', 'yellow', 'green', 'lightblue', 'blue', 'violet']
     const color = colors[Math.floor(Math.random() * colors.length)];
     return color; 
 };
 
+// Function to get random number.
 function randomNum() {
     return Math.floor(Math.random() * 256);
 };
 
+// Function to get random color from random number.
 function getRandomColor() {
     return `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
 };
 
+// Function to get grayscale color.
 function getGrayscale(square) {
     let grayScaleLevel = Number(square.dataset.grayScaleLevel);
     grayScaleLevel = Math.max(grayScaleLevel - 10, 0);
@@ -179,6 +196,7 @@ function getGrayscale(square) {
     return `rgb(${grayScaleValue}, ${grayScaleValue}, ${grayScaleValue})`;
 };
 
+// Add an event listener to input field for number of squares.
 const numInput = document.querySelector('#number');
 numInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
@@ -189,45 +207,57 @@ numInput.addEventListener('keydown', function (e) {
         createSquares(numSquares);
         numInput.value = '';
     }
+
+    // Reset the color of the buttons for selecting the number of squares.
     x8.style.color = '#04202c';
     x12.style.color = '#04202c';
     x16.style.color = '#04202c';
 });
 
+// Select the button for creating 8 squares and add a click event listener.
 const x8 = document.querySelector('#x8');
 x8.addEventListener('click', function () {
     numSquares = 8;
     createSquares(numSquares);
+    // Highlight the selected button and reset the color of the other buttons.
     x8.style.color = 'white';
     x12.style.color = '#04202c';
     x16.style.color = '#04202c';
 });
 
+// Select the button for creating 12 squares and add a click event listener.
 const x12 = document.querySelector('#x12');
 x12.addEventListener('click', function () {
     numSquares = 12;
     createSquares(numSquares);
+    // Highlight the selected button and reset the color of the other buttons.
     x12.style.color = 'white';
     x8.style.color = '#04202c';
     x16.style.color = '#04202c';
 });
 
+// Select the button for creating 16 squares and add a click event listener.
 const x16 = document.querySelector('#x16');
 x16.addEventListener('click', function () {
     numSquares = 16;
     createSquares(numSquares);
+    // Highlight the selected button and reset the color of the other buttons.
     x16.style.color = 'white';
     x8.style.color = '#04202c';
     x12.style.color = '#04202c';
 });
 
+// Select the reset button and add a click event listener
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', function () {
     field.innerHTML = '';
+    // Reset all color modes to false
     isBlack = false;
     isRainbow = false;
     isRandom = false;
     isGrayscale = false;
+    isEraser = false;
+    // Reset the color of all buttons
     blackButton.style.color = '#04202c';
     rainbowButton.style.color = '#04202c';
     randomButton.style.color = '#04202c';
