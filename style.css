@@ -1,0 +1,104 @@
+:root {
+  --dark-blue-grey: #04202c;
+  --dark-olive-grey: #5b7065;
+  --light-olive-grey: #c9d1cb;
+  --white: #fff;
+
+  --box-shadow: 0 0 24px var(--dark-blue-grey);
+
+  font-size: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Alumni Sans Collegiate One', sans-serif;
+  color: var(--dark-blue-grey);
+}
+
+body {
+  background: linear-gradient(var(--dark-olive-grey), var(--light-olive-grey));
+  height: 100vh;
+}
+
+.base {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+h1 {
+  font-size: 8rem;
+  font-weight: 400;
+  letter-spacing: 2.5rem;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px;
+}
+
+.button-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.sketch {
+  background-color: var(--white);
+  display: flex;
+  width: 420px;
+  height: 420px;
+  box-shadow: var(--box-shadow);
+}
+
+.button {
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+}
+
+.button:nth-child(1) {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.subButton {
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex: 1 1 0;
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 20px;
+  align-items: center;
+}
+
+.footer a {
+  font-size: 2rem;
+  text-decoration: none;
+  letter-spacing: 0.2rem;
+}
