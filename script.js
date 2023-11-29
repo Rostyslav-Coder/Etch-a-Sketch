@@ -1,25 +1,70 @@
 // Etch-a-Sketch
 
+// Declare and initialize color variables
+const darkBlueGrey = '#04202C';
+const lightOliveGrey = '#C9D1CB';
+const white = '#FFF';
+
 // Declare and initialize variables
 let numSquares;
-let isBlack = false;
-let isRainbow = false;
-let isRandom = false;
-let isGrayscale = false;
-let isEraser = false;
 
-// Declare and initialize buttons
-const blackButton = document.querySelector('#black');
-const rainbowButton = document.querySelector('#rainbow');
-const randomButton = document.querySelector('#random_');
-const grayscaleButton = document.querySelector('#grayscale');
-const eraserButton = document.querySelector('#eraser');
-const x8 = document.querySelector('#x8');
-const x12 = document.querySelector('#x12');
-const x16 = document.querySelector('#x16');
+// Declare and initialize button switcher
+const buttonSwitcher = {
+  isBlack: false,
+  isRainbow: false,
+  isRandom: false,
+  isGrayscale: false,
+  isEraser: false,
+};
 
-// Select the drawing field.
-const field = document.querySelector('#sketch');
+// Declare and initialize brushes buttons
+const brushesButtons = {
+  blackButton: document.querySelector('#black'),
+  rainbowButton: document.querySelector('#rainbow'),
+  randomButton: document.querySelector('#random_'),
+  grayscaleButton: document.querySelector('#grayscale'),
+  eraserButton: document.querySelector('#eraser'),
+};
+
+// Declare and initialize grig buttons
+const gridCreater = {
+  grid_8: document.querySelector('#x8'),
+  grid_12: document.querySelector('#x12'),
+  grid_16: document.querySelector('#x16'),
+};
+
+// Declare and initialize input grig creater
+const numInput = document.querySelector('#number');
+
+// Declare and initialize the drawing board.
+const drawingBoard = document.querySelector('#sketch');
+
+// FUnction to reset all color modes to false
+function resetsBrushSwitcher() {
+  Object.keys(buttonSwitcher).forEach((key) => {
+    buttonSwitcher[key] = false;
+  });
+}
+
+// Function to reset the styles of all colors buttons
+function resetButtonStyles() {
+  Object.values(brushesButtons).forEach((button) => {
+    if (button) {
+      // eslint-disable-next-line no-param-reassign
+      button.style.color = darkBlueGrey;
+    }
+  });
+}
+
+// Function to reset the styles of all number buttons
+function resetsNumberButtonStyles() {
+  Object.values(gridCreater).forEach((button) => {
+    if (button) {
+      // eslint-disable-next-line no-param-reassign
+      button.style.color = darkBlueGrey;
+    }
+  });
+}
 
 // Function to get random rainbow color.
 function getRainbowColor() {
@@ -29,13 +74,13 @@ function getRainbowColor() {
 }
 
 // Function to get random number.
-function randomNum() {
+function getRandomNum() {
   return Math.floor(Math.random() * 256);
 }
 
 // Function to get random color from random number.
 function getRandomColor() {
-  return `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
+  return `rgb(${getRandomNum()}, ${getRandomNum()}, ${getRandomNum()})`;
 }
 
 // Function to get grayscale color.
@@ -48,23 +93,23 @@ function getGrayscale(square) {
   return `rgb(${grayScaleValue}, ${grayScaleValue}, ${grayScaleValue})`;
 }
 
-// Function to create squares on the drawing field.
+// Function to create the grid on the drawing board
 function createSquares(num) {
   // Clear the field.
-  field.innerHTML = '';
+  drawingBoard.innerHTML = '';
   // Set up the grid.
-  field.style.display = 'grid';
-  field.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
-  field.style.gridTemplateRows = `repeat(${num}, 1fr)`;
+  drawingBoard.style.display = 'grid';
+  drawingBoard.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+  drawingBoard.style.gridTemplateRows = `repeat(${num}, 1fr)`;
 
   // Create squares.
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < num * num; i++) {
     const square = document.createElement('div');
     square.setAttribute('id', `square-${i}`);
-    square.style.border = '1px solid black';
+    square.style.border = `1px solid ${darkBlueGrey}`;
     square.dataset.grayScaleLevel = 100;
-    field.appendChild(square);
+    drawingBoard.appendChild(square);
   }
 
   // Select all created squares.
@@ -73,16 +118,16 @@ function createSquares(num) {
   squares.forEach((square) => {
     const cell = square;
     cell.addEventListener('mouseover', () => {
-      if (isBlack) {
+      if (buttonSwitcher.isBlack) {
         cell.style.backgroundColor = 'black';
-      } else if (isRainbow) {
+      } else if (buttonSwitcher.isRainbow) {
         cell.style.backgroundColor = getRainbowColor();
-      } else if (isRandom) {
+      } else if (buttonSwitcher.isRandom) {
         cell.style.backgroundColor = getRandomColor();
-      } else if (isGrayscale) {
+      } else if (buttonSwitcher.isGrayscale) {
         cell.style.backgroundColor = getGrayscale(cell);
-      } else if (isEraser) {
-        cell.style.backgroundColor = 'white';
+      } else if (buttonSwitcher.isEraser) {
+        cell.style.backgroundColor = lightOliveGrey;
         cell.dataset.grayScaleLevel = 100;
       }
     });
@@ -90,122 +135,71 @@ function createSquares(num) {
 }
 
 // Add click event listeners to button, black color.
-blackButton.addEventListener('click', () => {
-  if (!isBlack) {
-    isBlack = true;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    blackButton.style.color = 'white';
-    rainbowButton.style.color = '#04202c';
-    randomButton.style.color = '#04202c';
-    grayscaleButton.style.color = '#04202c';
-    eraserButton.style.color = '#04202c';
+brushesButtons.blackButton.addEventListener('click', () => {
+  if (!buttonSwitcher.isBlack) {
+    resetsBrushSwitcher();
+    buttonSwitcher.isBlack = true;
+    resetButtonStyles();
+    brushesButtons.blackButton.style.color = white;
   } else {
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    blackButton.style.color = '#04202c';
+    resetsBrushSwitcher();
+    brushesButtons.blackButton.style.color = darkBlueGrey;
   }
 });
 
 // Add click event listeners to button, random rainbow color.
-rainbowButton.addEventListener('click', () => {
-  if (!isRainbow) {
-    isRainbow = true;
-    isBlack = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    rainbowButton.style.color = 'white';
-    blackButton.style.color = '#04202c';
-    randomButton.style.color = '#04202c';
-    grayscaleButton.style.color = '#04202c';
-    eraserButton.style.color = '#04202c';
+brushesButtons.rainbowButton.addEventListener('click', () => {
+  if (!buttonSwitcher.isRainbow) {
+    resetsBrushSwitcher();
+    buttonSwitcher.isRainbow = true;
+    resetButtonStyles();
+    brushesButtons.rainbowButton.style.color = white;
   } else {
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    rainbowButton.style.color = '#04202c';
+    resetsBrushSwitcher();
+    brushesButtons.rainbowButton.style.color = darkBlueGrey;
   }
 });
 
 // Add click event listeners to button, random RGB color.
-randomButton.addEventListener('click', () => {
-  if (!isRandom) {
-    isRandom = true;
-    isBlack = false;
-    isRainbow = false;
-    isGrayscale = false;
-    isEraser = false;
-    randomButton.style.color = 'white';
-    blackButton.style.color = '#04202c';
-    rainbowButton.style.color = '#04202c';
-    grayscaleButton.style.color = '#04202c';
-    eraserButton.style.color = '#04202c';
+brushesButtons.randomButton.addEventListener('click', () => {
+  if (!buttonSwitcher.isRandom) {
+    resetsBrushSwitcher();
+    buttonSwitcher.isRandom = true;
+    resetButtonStyles();
+    brushesButtons.randomButton.style.color = white;
   } else {
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    randomButton.style.color = '#04202c';
+    resetsBrushSwitcher();
+    brushesButtons.randomButton.style.color = darkBlueGrey;
   }
 });
 
 // Add click event listeners to button, with conversion from grayscale to RGB.
-grayscaleButton.addEventListener('click', () => {
-  if (!isGrayscale) {
-    isGrayscale = true;
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isEraser = false;
-    grayscaleButton.style.color = 'white';
-    blackButton.style.color = '#04202c';
-    rainbowButton.style.color = '#04202c';
-    randomButton.style.color = '#04202c';
-    eraserButton.style.color = '#04202c';
+brushesButtons.grayscaleButton.addEventListener('click', () => {
+  if (!buttonSwitcher.isGrayscale) {
+    resetsBrushSwitcher();
+    buttonSwitcher.isGrayscale = true;
+    resetButtonStyles();
+    brushesButtons.grayscaleButton.style.color = white;
   } else {
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    grayscaleButton.style.color = '#04202c';
+    resetsBrushSwitcher();
+    brushesButtons.grayscaleButton.style.color = darkBlueGrey;
   }
 });
 
 // Add click event listeners to button, which clears the squares.
-eraserButton.addEventListener('click', () => {
-  if (!isEraser) {
-    isEraser = true;
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    eraserButton.style.color = 'white';
-    blackButton.style.color = '#04202c';
-    rainbowButton.style.color = '#04202c';
-    randomButton.style.color = '#04202c';
-    grayscaleButton.style.color = '#04202c';
+brushesButtons.eraserButton.addEventListener('click', () => {
+  if (!buttonSwitcher.isEraser) {
+    resetsBrushSwitcher();
+    buttonSwitcher.isEraser = true;
+    resetButtonStyles();
+    brushesButtons.eraserButton.style.color = white;
   } else {
-    isBlack = false;
-    isRainbow = false;
-    isRandom = false;
-    isGrayscale = false;
-    isEraser = false;
-    eraserButton.style.color = '#04202c';
+    resetsBrushSwitcher();
+    brushesButtons.eraserButton.style.color = darkBlueGrey;
   }
 });
 
 // Add an event listener to input field for number of squares.
-const numInput = document.querySelector('#number');
 numInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     numSquares = Number(numInput.value);
@@ -217,58 +211,43 @@ numInput.addEventListener('keydown', (e) => {
   }
 
   // Reset the color of the buttons for selecting the number of squares.
-  x8.style.color = '#04202c';
-  x12.style.color = '#04202c';
-  x16.style.color = '#04202c';
+  resetsNumberButtonStyles();
 });
 
 // Select the button for creating 8 squares and add a click event listener.
-x8.addEventListener('click', () => {
+gridCreater.grid_8.addEventListener('click', () => {
   numSquares = 8;
   createSquares(numSquares);
   // Highlight the selected button and reset the color of the other buttons.
-  x8.style.color = 'white';
-  x12.style.color = '#04202c';
-  x16.style.color = '#04202c';
+  resetsNumberButtonStyles();
+  gridCreater.grid_8.style.color = white;
 });
 
 // Select the button for creating 12 squares and add a click event listener.
-x12.addEventListener('click', () => {
+gridCreater.grid_12.addEventListener('click', () => {
   numSquares = 12;
   createSquares(numSquares);
   // Highlight the selected button and reset the color of the other buttons.
-  x12.style.color = 'white';
-  x8.style.color = '#04202c';
-  x16.style.color = '#04202c';
+  resetsNumberButtonStyles();
+  gridCreater.grid_12.style.color = white;
 });
 
 // Select the button for creating 16 squares and add a click event listener.
-x16.addEventListener('click', () => {
+gridCreater.grid_16.addEventListener('click', () => {
   numSquares = 16;
   createSquares(numSquares);
   // Highlight the selected button and reset the color of the other buttons.
-  x16.style.color = 'white';
-  x8.style.color = '#04202c';
-  x12.style.color = '#04202c';
+  resetsNumberButtonStyles();
+  gridCreater.grid_16.style.color = white;
 });
 
 // Select the reset button and add a click event listener
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', () => {
-  field.innerHTML = '';
+  drawingBoard.innerHTML = '';
   // Reset all color modes to false
-  isBlack = false;
-  isRainbow = false;
-  isRandom = false;
-  isGrayscale = false;
-  isEraser = false;
+  resetsBrushSwitcher();
   // Reset the color of all buttons
-  blackButton.style.color = '#04202c';
-  rainbowButton.style.color = '#04202c';
-  randomButton.style.color = '#04202c';
-  grayscaleButton.style.color = '#04202c';
-  eraserButton.style.color = '#04202c';
-  x8.style.color = '#04202c';
-  x12.style.color = '#04202c';
-  x16.style.color = '#04202c';
+  resetButtonStyles();
+  resetsNumberButtonStyles();
 });
